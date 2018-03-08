@@ -1,0 +1,828 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Hwk3}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsubsection{Q.1}\label{q.1}
+
+\textbf{\texorpdfstring{Show that if X has linearly independent
+columns, then \(X^TX\) is invertible, and \(X^+ = (X^TX)^{-1}X^T\).}}\\
+Do a SVD on X:\\
+\(X=QDP^T\), where
+\(Q\subset \mathbb{R} ^{m\times m}, P\subset \mathbb{R} ^{q\times q}, D\subset \mathbb{R} ^{m\times q}\).
+Both \(Q\) and \(P\) are orthonormal matrices. \(D\) is full column as
+well and \(\lambda_i >0, \forall i\).
+\(D = \begin{bmatrix}\lambda_1 & 0 & \cdots & 0 \\ 0 & \lambda_2 & \cdots & \vdots \\ \vdots & & \ddots & \vdots \\ 0 & \cdots & 0 & \lambda_q\\ \vdots & \ddots & & 0 \\ \vdots & & \ddots &\vdots \\ 0 & \cdots & \cdots & 0 \end{bmatrix}\)\\
+So, \(X^TX=PD^TQ^TQDP^T = PD^TDP^T\), which implies
+\(|\det(X^TX)|=|det(P)||det(D^TD)||det(P^T)|\). Meanwhile, the
+determinant of orthonormal matrices are either 1 or -1, and
+\(det(D^TD) = \Pi_{i=1}^q \lambda_i^2 \neq 0\). Thus
+\(\det(X^TX)\neq 0\). We also know that \(det(A) \neq 0 \iff A\) is
+invertible. Thus, \(X^TX\) is invertible.
+\\
+(A). Because \(XX^+\) is invertible, we have \(XX^+ = (X^+)^TX^T\)\\
+(B).\(XX^+X = X \Rightarrow (X^+)^TX^TX = X \Rightarrow (X^+)^TX^TX(X^TX)^{-1} = X(X^TX)^{-1} \Rightarrow (X^+)^T = X(X^TX)^{-1} \Rightarrow X^+ = (X^TX)^{-1}X^T\)
+\\\\
+\textbf{\texorpdfstring{Show that if X has linearly independent
+rows, then \(XX^T\) is invertible, and \(X^+ = X^T(X^TX)^{-1}\).}}\\
+Do a SVD on X:\\
+\(X=QDP^T\), where
+\(Q\subset \mathbb{R} ^{m\times m}, P\subset \mathbb{R} ^{q\times q}, D\subset \mathbb{R} ^{m\times q}\).
+Both \(Q\) and \(P\) are orthonormal matrices. \(D\) is full row as well
+and \(\lambda_i >0, \forall i\).
+\(D = \begin{bmatrix}\lambda_1 & 0 & \cdots & 0 & \cdots & 0 \\ 0 & \lambda_2 & \cdots & \vdots & & \vdots \\ \vdots & & \ddots & \vdots & & \vdots \\ 0 & \cdots & 0 & \lambda_m & \cdots & 0\end{bmatrix}\)\\
+So, \(XX^T=QDP^TPD^TQ^T = QDD^TQ^T\), which implies
+\(|\det(X^TX)|=|det(Q)||det(DD^T)||det(Q^T)|\). Meanwhile, the
+determinant of orthonormal matrices are either 1 or -1, and
+\(det(DD^T) = \Pi_{i=1}^m \lambda_i^2 \neq 0\). Thus
+\(\det(X^TX)\neq 0\). We also know that \(det(A) \neq 0 \iff A\) is
+invertible. Thus, \(XX^T\) is invertible.
+\\
+(C). Because \(X^+X\) is invertible, we have \(X^+X = X^T(X^+)^T\)\\
+(D).
+\(XX^+X = X \Rightarrow XX^T(X^+)^T = X \Rightarrow (X^TX)^{-1}XX^T(X^+)^T = (X^TX)^{-1}X \Rightarrow (X^+)^T = (X^TX)^{-1}X \Rightarrow X^+ = X^T(X^TX)^{-1}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib} \PY{k}{as} \PY{n+nn}{mpl}
+\end{Verbatim}
+
+    \subsubsection{Q.2 Let f(x, y) = − log(1 − x − y) − log x − log y with
+domain D = \{(x, y) : x + y \textless{} 1, x \textgreater{} 0, y
+\textgreater{}
+0\}.}\label{q.2-let-fx-y-log1-x-y-log-x-log-y-with-domain-d-x-y-x-y-1-x-0-y-0.}
+
+\textbf{(a) Find the gradient and the Hessian of f on
+paper.}\\
+
+    \(\nabla f(x,y) = (\frac{\partial f(x,y)}{\partial x},\frac{\partial f(x,y)}{\partial y})^T = (\frac{1}{1-x-y}-\frac{1}{x}, \frac{1}{1-x-y}-\frac{1}{y})^T\)
+
+\(H = \begin{bmatrix} \frac{\partial^2 f(x,y)}{\partial x^2} & \frac{\partial^2 f(x,y)}{\partial x \partial y}\\ \frac{\partial^2 f(x,y)}{\partial y \partial x} & \frac{\partial^2 f(x,y)}{\partial y^2} \end{bmatrix} =\begin{bmatrix} \frac{1}{(1-x-y)^2}+\frac{1}{x^2} & \frac{1}{(1-x-y)^2} \\ \frac{1}{(1-x-y)^2} & \frac{1}{(1-x-y)^2}+\frac{1}{y^2} \end{bmatrix}\)
+
+    \paragraph{(b) Begin with an initial point in w\_0\_ ∈ D with η = 1 and
+estimate the global minimum of f using the Gradient descent method,
+which will provide you with points w1, w2, . . . ,. Report your initial
+point w0 and η of your choice. Draw a graph that shows the trajectory
+followed by the points at each iteration. Also, plot the energies f(w0),
+f(w1), . . . , achieved by the points at each iteration. Note: During
+the iterations, your point may ``jump'' out of D where f is undefined.
+If that happens, change your initial starting point and/or
+η.}\label{b-begin-with-an-initial-point-in-w_0_-d-with-ux3b7-1-and-estimate-the-global-minimum-of-f-using-the-gradient-descent-method-which-will-provide-you-with-points-w1-w2-.-.-.-.-report-your-initial-point-w0-and-ux3b7-of-your-choice.-draw-a-graph-that-shows-the-trajectory-followed-by-the-points-at-each-iteration.-also-plot-the-energies-fw0-fw1-.-.-.-achieved-by-the-points-at-each-iteration.-note-during-the-iterations-your-point-may-jump-out-of-d-where-f-is-undefined.-if-that-happens-change-your-initial-starting-point-andor-ux3b7.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{45}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} define a loss function}
+        \PY{k}{def} \PY{n+nf}{losfunction} \PY{p}{(}\PY{n}{w}\PY{p}{)}\PY{p}{:}
+            \PY{n}{loss} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{w}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{n}{loss}
+        
+        \PY{c+c1}{\PYZsh{}  setup}
+        \PY{n}{w} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+        \PY{n}{loss} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+        \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mf}{0.005}
+        \PY{n}{eta} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{j}\PY{o}{=} \PY{l+m+mi}{0}
+        \PY{c+c1}{\PYZsh{} give a dummy start point which will be deleted later so that index is working}
+        \PY{n}{temp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{l+m+mf}{0.8}\PY{p}{]}\PY{p}{)}
+        \PY{n}{temploss} \PY{o}{=} \PY{n}{losfunction}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+        \PY{n}{w}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+        \PY{n}{loss}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temploss}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} initialize the starting point w\PYZus{}0 in D}
+        \PY{n}{temp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{k}{while} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{temp}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{n}{temp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} append the first point in w}
+        \PY{n}{w}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+        \PY{n}{temploss} \PY{o}{=} \PY{n}{losfunction}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+        \PY{n}{loss}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temploss}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} the while loops ends when converge}
+        \PY{k}{while} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{loss}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{loss}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{n}{epsilon}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} find the gradient}
+            \PY{n}{g} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+            \PY{n}{temp} \PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{eta}\PY{o}{*}\PY{n}{g}
+            \PY{c+c1}{\PYZsh{} if counter k is larger than 5, the overall eta will be reduced by 1/2}
+            \PY{n}{etanew} \PY{o}{=} \PY{n}{eta}
+            \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{c+c1}{\PYZsh{} if the temp is outside the D, will redo the while loop and add the counter}
+            \PY{k}{while} \PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{temp}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{1} \PY{o+ow}{or} \PY{n}{temp}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{0} \PY{o+ow}{or} \PY{n}{temp}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                \PY{n}{etanew} \PY{o}{=} \PY{n}{etanew}\PY{o}{/}\PY{l+m+mi}{2}
+                \PY{n}{temp} \PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{etanew}\PY{o}{*}\PY{n}{g}
+                \PY{n}{k} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                \PY{n}{j} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+            \PY{n}{w}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+            \PY{n}{temploss} \PY{o}{=} \PY{n}{losfunction}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+            \PY{n}{loss}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temploss}\PY{p}{)}
+            
+            \PY{k}{if} \PY{n}{k}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{:}
+                \PY{n}{eta} \PY{o}{=} \PY{n}{eta}\PY{o}{/}\PY{l+m+mi}{2}
+        \PY{c+c1}{\PYZsh{} delete the dummy point}
+        \PY{k}{del}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{k}{del}\PY{p}{(}\PY{n}{loss}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} convert w to ndarray for plot}
+        \PY{n}{w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{w}\PY{p}{)}
+        \PY{n}{w}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} array([ 0.2814473 ,  0.07728957])
+\end{Verbatim}
+        
+    \paragraph{\texorpdfstring{{Q. Report your initial point w0 and η of
+your
+choice.}}{Q. Report your initial point w0 and η of your choice.}}\label{q.-report-your-initial-point-w0-and-ux3b7-of-your-choice.}
+
+\paragraph{\texorpdfstring{{The intial point is at {[} 0.2814473 ,
+0.07728957{]}. The intial eta is 1, but if the update is out of
+boundaries, eta will temporarily shrink by 1/2 until the update is
+within boundaries. Also, if it takes for more than 5 temporaty attempts
+to shrink the eta for one iteration, the overall eta will be shrinked by
+1/2.
+}}{The intial point is at {[} 0.2814473 , 0.07728957{]}. The intial eta is 1, but if the update is out of boundaries, eta will temporarily shrink by 1/2 until the update is within boundaries. Also, if it takes for more than 5 temporaty attempts to shrink the eta for one iteration, the overall eta will be shrinked by 1/2. }}\label{the-intial-point-is-at-0.2814473-0.07728957.-the-intial-eta-is-1-but-if-the-update-is-out-of-boundaries-eta-will-temporarily-shrink-by-12-until-the-update-is-within-boundaries.-also-if-it-takes-for-more-than-5-temporaty-attempts-to-shrink-the-eta-for-one-iteration-the-overall-eta-will-be-shrinked-by-12.}
+
+    \paragraph{\texorpdfstring{{Q. Draw a graph that shows the trajectory
+followed by the points at each iteration.
+}}{Q. Draw a graph that shows the trajectory followed by the points at each iteration. }}\label{q.-draw-a-graph-that-shows-the-trajectory-followed-by-the-points-at-each-iteration.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+        \PY{n}{A} \PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{B} \PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{n} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{w}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZhy{}\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{C} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{txt} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{C}\PY{p}{)}\PY{p}{:}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{n}{n}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{p}{(}\PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{B}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Trajectory followed by the points at each iteration (b)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{6}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{epsilon =5e\PYZhy{}3\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{style}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{italic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{n}{bbox}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{facecolor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pad}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{,}\PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{\texorpdfstring{{Q. Plot the energies f(w0), f(w1), . . . ,
+achieved by the points at each iteration.
+}}{Q. Plot the energies f(w0), f(w1), . . . , achieved by the points at each iteration. }}\label{q.-plot-the-energies-fw0-fw1-.-.-.-achieved-by-the-points-at-each-iteration.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+        \PY{n}{A} \PY{o}{=} \PY{n}{loss}
+        \PY{n}{n} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{A}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{txt} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{:}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{txt}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{n}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iteration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost at each iteration (b)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} converging point}
+        \PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} array([ 0.31665327,  0.31669632])
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} converging cost}
+        \PY{n}{loss}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} 3.3031062823844062
+\end{Verbatim}
+        
+    \paragraph{(c) Repeat part (b) using Newton's
+method.}\label{c-repeat-part-b-using-newtons-method.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{45}\PY{p}{)}
+        \PY{k}{def} \PY{n+nf}{Hmatrix} \PY{p}{(}\PY{n}{w}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x} \PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{y} \PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+            \PY{n}{mat} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}\PY{p}{]}
+            \PY{n}{out} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{mat}\PY{p}{)}
+            \PY{k}{return} \PY{n}{out}
+        \PY{c+c1}{\PYZsh{}  setup}
+        \PY{n}{w} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+        \PY{n}{loss} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+        \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mf}{0.005}
+        \PY{n}{eta} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{j}\PY{o}{=} \PY{l+m+mi}{0}
+        \PY{c+c1}{\PYZsh{} give a dummy start point which will be deleted later so that index is working}
+        \PY{n}{temp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{l+m+mf}{0.8}\PY{p}{]}\PY{p}{)}
+        \PY{n}{temploss} \PY{o}{=} \PY{n}{losfunction}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+        \PY{n}{w}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+        \PY{n}{loss}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temploss}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} initialize the starting point w\PYZus{}0 in D}
+        \PY{n}{temp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{k}{while} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{temp}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{n}{temp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} append the first point in w}
+        \PY{n}{w}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+        \PY{n}{temploss} \PY{o}{=} \PY{n}{losfunction}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+        \PY{n}{loss}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temploss}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} the while loops ends when converge}
+        \PY{k}{while} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{loss}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{loss}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{n}{epsilon}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} find the gradient}
+            \PY{n}{g} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+            \PY{n}{H} \PY{o}{=} \PY{n}{Hmatrix}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+            \PY{n}{Hinv} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{H}\PY{p}{)}
+            \PY{n}{temp} \PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{eta}\PY{o}{*}\PY{n}{Hinv}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{g}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} if counter k is larger than 5, the overall eta will be reduced by 1/2}
+            \PY{n}{etanew} \PY{o}{=} \PY{n}{eta}
+            \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{c+c1}{\PYZsh{} if the temp is outside the D, will redo the while loop and add the counter}
+            \PY{k}{while} \PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{temp}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{1} \PY{o+ow}{or} \PY{n}{temp}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{0} \PY{o+ow}{or} \PY{n}{temp}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                \PY{n}{etanew} \PY{o}{=} \PY{n}{etanew}\PY{o}{/}\PY{l+m+mi}{2}
+                \PY{n}{temp} \PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{etanew}\PY{o}{*}\PY{n}{Hinv}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{g}\PY{p}{)}
+                \PY{n}{k} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                \PY{n}{j} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+            \PY{n}{w}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+            \PY{n}{temploss} \PY{o}{=} \PY{n}{losfunction}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+            \PY{n}{loss}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temploss}\PY{p}{)}
+            
+            \PY{k}{if} \PY{n}{k}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{:}
+                \PY{n}{eta} \PY{o}{=} \PY{n}{eta}\PY{o}{/}\PY{l+m+mi}{2}
+        \PY{c+c1}{\PYZsh{} delete the dummy point}
+        \PY{k}{del}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{k}{del}\PY{p}{(}\PY{n}{loss}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} convert w to ndarray for plot}
+        \PY{n}{w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{w}\PY{p}{)}
+\end{Verbatim}
+
+    \paragraph{\texorpdfstring{{Q. Report your initial point w0 and η of
+your
+choice.}}{Q. Report your initial point w0 and η of your choice.}}\label{q.-report-your-initial-point-w0-and-ux3b7-of-your-choice.}
+
+\paragraph{\texorpdfstring{{The intial point is at {[} 0.2814473 ,
+0.07728957{]}. The intial eta is 1, but if the update is out of
+boundaries, eta will temporarily shrink by 1/2 until the update is
+within boundaries. Also, if it takes for more than 5 temporaty attempts
+to shrink the eta for one iteration, the overall eta will be shrinked by
+1/2.However, unlike the gradient descendent, eta stays at 1.
+}}{The intial point is at {[} 0.2814473 , 0.07728957{]}. The intial eta is 1, but if the update is out of boundaries, eta will temporarily shrink by 1/2 until the update is within boundaries. Also, if it takes for more than 5 temporaty attempts to shrink the eta for one iteration, the overall eta will be shrinked by 1/2.However, unlike the gradient descendent, eta stays at 1. }}\label{the-intial-point-is-at-0.2814473-0.07728957.-the-intial-eta-is-1-but-if-the-update-is-out-of-boundaries-eta-will-temporarily-shrink-by-12-until-the-update-is-within-boundaries.-also-if-it-takes-for-more-than-5-temporaty-attempts-to-shrink-the-eta-for-one-iteration-the-overall-eta-will-be-shrinked-by-12.however-unlike-the-gradient-descendent-eta-stays-at-1.}
+
+    \paragraph{\texorpdfstring{{Q. Draw a graph that shows the trajectory
+followed by the points at each iteration.
+}}{Q. Draw a graph that shows the trajectory followed by the points at each iteration. }}\label{q.-draw-a-graph-that-shows-the-trajectory-followed-by-the-points-at-each-iteration.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+        \PY{n}{A} \PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{B} \PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{n} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{w}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZhy{}\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{C} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{txt} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{C}\PY{p}{)}\PY{p}{:}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{n}{n}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{p}{(}\PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{B}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Trajectory followed by the points at each iteration (c)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{6}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{epsilon =5e\PYZhy{}3\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{style}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{italic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{n}{bbox}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{facecolor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pad}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{,}\PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{\texorpdfstring{{Q. Plot the energies f(w0), f(w1), . . . ,
+achieved by the points at each iteration.
+}}{Q. Plot the energies f(w0), f(w1), . . . , achieved by the points at each iteration. }}\label{q.-plot-the-energies-fw0-fw1-.-.-.-achieved-by-the-points-at-each-iteration.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{A} \PY{o}{=} \PY{n}{loss}
+         \PY{n}{n} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{A}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{txt} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{txt}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{n}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iteration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost at each iteration (c)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} converging point}
+         \PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} array([ 0.33385717,  0.33241947])
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} converging cost}
+         \PY{n}{loss}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 3.2958425486216987
+\end{Verbatim}
+        
+    \paragraph{(d) Compare the speed of convergence of gradient descent and
+Newton's method, i.e. how fast does each method approach the estimated
+global
+minimum?}\label{d-compare-the-speed-of-convergence-of-gradient-descent-and-newtons-method-i.e.-how-fast-does-each-method-approach-the-estimated-global-minimum}
+
+     With the same intialized starting point and eta, and the same
+convergence condition, it took gradient descent \textbf{21} epochs while
+\textbf{5} for the Newton's method. Meanwhile,this was accomplished with
+the "smart" shrinkage programming on the eta on both methods. In the
+gradient descent case, the gloabal eta shrunk down to 0.0625, while the
+global eta of Newton's method stayed at 1 for the whole time. Finally,
+the estimated global minimum is 3.303106 (gradient descent) vs. 3.295843
+(Newton's method). In sum, with the appropriate choice of \(\eta\) if
+the computation of the Hessian matrix and its inverse is not computation
+heavy, Newton's method can achieve the covergence faster and probably
+provide a more optimized cost function. It should be noted that a
+oversmall or overbig \(\eta\) might make the Newton's method perform
+worse than the gradient descent method.
+
+    \subsubsection{Q.3}\label{q.3}
+
+    \subparagraph{(a) Let xi = i, i = 1,...,50.}\label{a-let-xi-i-i-1...50.}
+
+\subparagraph{(b) Let yi = i + ui, i = 1,...,50, where each ui should be
+chosen to be an arbitrary real number between −1 and
+1.}\label{b-let-yi-i-ui-i-1...50-where-each-ui-should-be-chosen-to-be-an-arbitrary-real-number-between-1-and-1.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{45}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{51}\PY{p}{)}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{)} \PY{o}{+} \PY{n}{x}
+\end{Verbatim}
+
+    \paragraph{(c) Find the linear least squares fit to (xi , yi ), i = 1, .
+. . , 50. Note that the linear least squares fit is the line y = w0 +
+w1x, where w0 and w1 should be chosen to minimize 50 (yi − (w0 +
+w1xi))2.}\label{c-find-the-linear-least-squares-fit-to-xi-yi-i-1-.-.-.-50.-note-that-the-linear-least-squares-fit-is-the-line-y-w0-w1x-where-w0-and-w1-should-be-chosen-to-minimize-50-yi-w0-w1xi2.}
+
+{ Let
+\(W = [w_0, w_1], X = \begin{bmatrix}1 & 1 & \cdots & 1 \\ x_1 & x_2 & \cdots & x_{50} \end{bmatrix}, Y = \begin{bmatrix} y_1 & y_2 & \cdots & y_{50} \end{bmatrix}\).\\
+Thus, we are essentially finding \(\underset{W}{\arg\min}||Y-WX||^2\).
+And we have already known that the solution to \(Y-WX=0\) is
+\(W^*_{L.S.} = YX^+\), where \(X^+ = X^T(XX^T)^{-1}\) given X is full
+row. Therefore, \(W^*_{L.S.} = YX^T(XX^T)^{-1}\) }
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{Y} \PY{o}{=} \PY{n}{y}
+         \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         \PY{n}{Wstar} \PY{o}{=} \PY{n}{Y}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{Wstar}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} array([-0.049585  ,  0.99941613])
+\end{Verbatim}
+        
+    { So w0 = -0.049585, w1 = 0.99941613 are to chosen to minimize E.}
+
+    \paragraph{(d) Plot the points (xi; yi); i = 1; : : : ; 50 together with
+their linear least squares
+fit.}\label{d-plot-the-points-xi-yi-i-1-50-together-with-their-linear-least-squares-fit.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{yfit} \PY{o}{=} \PY{p}{[}\PY{n}{Wstar}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{Wstar}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*} \PY{n}{xi} \PY{k}{for} \PY{n}{xi} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{yfit}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot for 3(d)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{(e) Find (on paper) the gradient of 50 (yi −(w0 +w1xi))2
+(derivatives with respect to w0 and
+w1).}\label{e-find-on-paper-the-gradient-of-50-yi-w0-w1xi2-derivatives-with-respect-to-w0-and-w1.}
+
+{ Let \(E = \sum_{i=1}^{50}(y_i-(w_0+w_1x_i))^2\).\\
+Then
+\(\nabla E = (\frac{\partial E}{\partial w_0},\frac{\partial E}{\partial w_1}) = (-2\sum_{i=1}^{50}(y_i-(w_0+w_1x_i)),-2\sum_{i=1}^{50}((y_i-(w_0+w_1x_i))x_i) = 2(Y-WX)X^T\).\\
+Thus, the update will be: \(w \leftarrow w - \eta \nabla E\) }
+
+    \paragraph{(f) (Re)find the linear least squares fit using the gradient
+descent algorithm. Compare with
+(c).}\label{f-refind-the-linear-least-squares-fit-using-the-gradient-descent-algorithm.-compare-with-c.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{45}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} define a cost function}
+         \PY{k}{def} \PY{n+nf}{cost\PYZus{}function} \PY{p}{(}\PY{n}{w}\PY{p}{)}\PY{p}{:}
+             \PY{n}{cost} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{Y}\PY{o}{\PYZhy{}}\PY{n}{w}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{k}{return} \PY{n}{cost}
+         
+         \PY{c+c1}{\PYZsh{}  setup}
+         \PY{n}{w} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+         \PY{n}{cost} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+         \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}6}
+         \PY{n}{eta} \PY{o}{=} \PY{l+m+mf}{3e\PYZhy{}4}
+         \PY{n}{j} \PY{o}{=} \PY{l+m+mi}{0}
+         
+         \PY{c+c1}{\PYZsh{} give a dummy start point which will be deleted later so that index is working}
+         \PY{n}{temp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{l+m+mf}{0.8}\PY{p}{]}\PY{p}{)}
+         \PY{n}{temploss} \PY{o}{=} \PY{n}{cost\PYZus{}function}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+         \PY{n}{w}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+         \PY{n}{cost}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temploss}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} initialize the starting point w\PYZus{}0 in D}
+         \PY{n}{temp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} append the first point in w}
+         \PY{n}{w}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+         \PY{n}{temploss} \PY{o}{=} \PY{n}{cost\PYZus{}function}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+         \PY{n}{cost}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temploss}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} the while loops ends when converge}
+         \PY{k}{while} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{cost}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{cost}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{n}{epsilon}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} find the gradient}
+             \PY{n}{g} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{Y}\PY{o}{\PYZhy{}}\PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{Y}\PY{o}{\PYZhy{}}\PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{n}{x}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{50}
+             \PY{n}{temp} \PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{eta}\PY{o}{*}\PY{n}{g}
+             \PY{n}{w}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+             \PY{n}{temploss} \PY{o}{=} \PY{n}{cost\PYZus{}function}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+             \PY{n}{cost}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temploss}\PY{p}{)}
+             \PY{n}{j} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         
+         \PY{c+c1}{\PYZsh{} delete the dummy point}
+         \PY{k}{del}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{k}{del}\PY{p}{(}\PY{n}{cost}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} convert w to ndarray for plot}
+         \PY{n}{w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{w}\PY{p}{)}
+         \PY{n}{j}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} 28427
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{w}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} array([-0.03274961,  0.99891593])
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{cost\PYZus{}function}\PY{p}{(}\PY{n}{Wstar}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} 16.526723550620243
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{cost}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} 16.530161196220153
+\end{Verbatim}
+        
+    \paragraph{\texorpdfstring{{ Compare with
+(c).}}{ Compare with (c).}}\label{compare-with-c.}
+
+{So w0 = -0.03275, w1 = 0.99892 are to chosen to by the gradient descent
+method after 28427 epoch (batch version), compared with the w0 =
+-0.049585, w1 = 0.99941613 chosen by the least square mothod in one
+iteration. The cost by gradient descent is 16.53016, while the least
+square's cost is 16.52672. And an appropriate choice of \(\eta\) for
+gradient descent is tricky.}
+
+    \textbf{(g) Show (on paper) that a single iteration of Newton's
+method with η = 1 provides the globally optimal solution (the solution
+in (c)) regardless of the initial
+point.}\\
+
+{ From (c), we have already known that the least square
+\(W^*_{L.S.} = YX^T(XX^T)^{-1}\).\\
+By gradient descent method, the gradient is:
+\(\nabla E = \frac{\partial (Y-WX)(Y-WX)^T}{\partial W} = 2(Y-WX)X^T\).\\
+And the Hessian matrix is:
+\(H = \frac{\partial \nabla E}{\partial W} = \frac{\partial 2(Y-WX)X^T}{\partial W} =-2XX^T\),
+and \(H^{-1} = -\frac{1}{2}(XX^T)^{-1}\).\\
+Thus,
+\(W^*_{G.D.} = W - \eta \nabla E H^{-1} = W + (Y-WX)X^T(XX^T)^{-1} = W + YX^T(XX^T)^{-1} - W = YX^T(XX^T)^{-1} = W^*_{L.S.}\)
+}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
